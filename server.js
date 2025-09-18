@@ -2,11 +2,11 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const swaggerJsdoc = require("swagger-jsdoc");
-const swagger_UI = require("swagger-ui-express");
 const PORT = 1230;
 const app = express();
-const productRouter = require('./router/product');
+const productRouter = require('./routes/product');
+const swaggerJsdoc = require("swagger-jsdoc");
+const swagger_UI = require("swagger-ui-express");
 
 app.use(express.json());
 app.use(cors());
@@ -18,13 +18,13 @@ const options = {
     info: {
       title: "Product API Documentation",
       version: '1.0.0',
-      description: "",
+      description: "Documentation for product api",
       license: {
-        name: 'https://product-api-4vw8.onrender.com',
+        name: 'BASE URL: https://product-api-4vw8.onrender.com',
       },
       contact: {
-        name: "",
-        url: ""
+        name: "Backend Repo",
+        url: "https://github.com/vibeofficial/product_API.git"
       }
     },
     components: {

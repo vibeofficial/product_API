@@ -86,7 +86,7 @@ const router = require('express').Router();
  *               properties:
  *                 message:
  *                   type: string
- *                   example: Error creating product: <error details>
+ *                   example: Error creating product
  */
 router.post('/create', uploads.single('productImage'), createProduct);
 
@@ -144,9 +144,9 @@ router.post('/create', uploads.single('productImage'), createProduct);
  *               properties:
  *                 message:
  *                   type: string
- *                   example: Error getting all products: <error details>
+ *                   example: Error getting all products
  */
-router.get('get-all', getAll);
+router.get('/get-all', getAll);
 
 /**
  * @swagger
@@ -218,9 +218,9 @@ router.get('get-all', getAll);
  *               properties:
  *                 message:
  *                   type: string
- *                   example: Error getting product: <error details>
+ *                   example: Error getting product
  */
-router.get('get-one', getOne);
+router.get('/get-one/:id', getOne);
 
 /**
  * @swagger
@@ -322,9 +322,9 @@ router.get('get-one', getOne);
  *               properties:
  *                 message:
  *                   type: string
- *                   example: Error getting product: <error details>
+ *                   example: Error getting product
  */
-router.put('update', uploads.single('productImage'), update);
+router.put('/update/:id', uploads.single('productImage'), update);
 
 /**
  * @swagger
@@ -372,9 +372,9 @@ router.put('update', uploads.single('productImage'), update);
  *               properties:
  *                 message:
  *                   type: string
- *                   example: Error deleting product: <error details>
+ *                   example: Error deleting product
  */
-router.delete('delete', deleteProduct);
+router.delete('/delete/:id', deleteProduct);
 
 
 
