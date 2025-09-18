@@ -20,7 +20,7 @@ const options = {
       version: '1.0.0',
       description: "",
       license: {
-        name: 'BASE URL: https://quicklah-backend.onrender.com',
+        name: 'https://product-api-4vw8.onrender.com',
       },
       contact: {
         name: "Backend Repo",
