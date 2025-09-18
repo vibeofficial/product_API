@@ -5,6 +5,7 @@ const cors = require('cors');
 const PORT = 1230;
 const app = express();
 const productRouter = require('./routes/product');
+const userRouter = require('./routes/user');
 const swaggerJsdoc = require("swagger-jsdoc");
 const swagger_UI = require("swagger-ui-express");
 
@@ -46,6 +47,7 @@ app.use("/documentation", swagger_UI.serve, swagger_UI.setup(openapiSpecificatio
 
 
 app.use(productRouter);
+app.use(userRouter);
 
 mongoose.connect(process.env.DB_URI).then(() => {
   console.log('Connected to Database');

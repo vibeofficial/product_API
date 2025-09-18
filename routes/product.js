@@ -6,12 +6,17 @@ const router = require('express').Router();
 
 /**
  * @swagger
- * /create:
+ * /api/v1/products/create/{id}:
  *   post:
- *     summary: Create a new product
- *     description: Creates a new product with an uploaded image. The image is first stored locally using Multer and then uploaded to Cloudinary.
- *     tags:
- *       - Products
+ *     summary: Create a new product for a user
+ *     tags: [Products]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the user creating the product
  *     requestBody:
  *       required: true
  *       content:
@@ -21,19 +26,18 @@ const router = require('express').Router();
  *             properties:
  *               productName:
  *                 type: string
- *                 example: Apple iPhone 15
+ *                 example: Samsung Galaxy S24
  *               price:
  *                 type: number
  *                 example: 1200
  *               description:
  *                 type: string
- *                 example: Latest iPhone model with advanced features
+ *                 example: A high-end Samsung smartphone
  *               productImage:
  *                 type: string
  *                 format: binary
- *                 description: Product image file
  *     responses:
- *       '201':
+ *       201:
  *         description: Product created successfully
  *         content:
  *           application/json:
@@ -44,51 +48,15 @@ const router = require('express').Router();
  *                   type: string
  *                   example: Product created successfully
  *                 data:
- *                   type: object
- *                   properties:
- *                     _id:
- *                       type: string
- *                       example: 650b3d7f32b1ab001f4c25dd
- *                     productName:
- *                       type: string
- *                       example: Apple iPhone 15
- *                     price:
- *                       type: number
- *                       example: 1200
- *                     description:
- *                       type: string
- *                       example: Latest iPhone model with advanced features
- *                     productImage:
- *                       type: object
- *                       properties:
- *                         imageUrl:
- *                           type: string
- *                           example: https://res.cloudinary.com/demo/image/upload/v1694106768/sample.jpg
- *                         publicId:
- *                           type: string
- *                           example: sample_public_id
- *       '400':
+ *                   $ref: '#/components/schemas/Product'
+ *       400:
  *         description: Product already exists
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: Product already exist
- *       '500':
- *         description: Internal server error
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: Error creating product
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Server error
  */
-router.post('/create', uploads.single('productImage'), createProduct);
+router.post('/create/:id', uploads.single('productImage'), createProduct);
 
 /**
  * @swagger

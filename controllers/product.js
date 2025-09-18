@@ -1,10 +1,18 @@
 const productModel = require('../model/product');
 const cloudinary = require('../config/cloudinary');
 const fs = require('fs');
+const userModel = require('../model/user');
 
 exports.createProduct = async (req, res) => {
   try {
     const { productName, price, description } = req.body;
+    const { id } = req.params;
+    const user = await userModel.findById(id);
+
+    if (!user) {
+      return res.status(404).json('Cannot create product for unexisting user')
+    };
+
     const existProduct = await productModel.findOne({ productName: productName });
     const file = req.file;
     let response;
@@ -19,7 +27,7 @@ exports.createProduct = async (req, res) => {
     if (file && file.path) {
       response = await cloudinary.uploader.upload(file.path);
       console.log(response);
-      
+
       fs.unlinkSync(file.path);
     };
 
@@ -37,7 +45,7 @@ exports.createProduct = async (req, res) => {
     })
   } catch (error) {
     console.log(error);
-    
+
     res.status(500).json({
       message: `Error creating product: ${error.message}`
     })
