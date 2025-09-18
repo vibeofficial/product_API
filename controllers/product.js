@@ -18,6 +18,8 @@ exports.createProduct = async (req, res) => {
 
     if (file && file.path) {
       response = await cloudinary.uploader.upload(file.path);
+      console.log(response);
+      
       fs.unlinkSync(file.path);
     };
 
@@ -25,7 +27,7 @@ exports.createProduct = async (req, res) => {
       productName,
       price,
       description,
-      productImage: { imageUrl: response.secure_url, publicId: public_id }
+      productImage: { imageUrl: response.secure_url, publicId: response.public_id }
     });
 
     await product.save();
@@ -34,6 +36,8 @@ exports.createProduct = async (req, res) => {
       data: product
     })
   } catch (error) {
+    console.log(error);
+    
     res.status(500).json({
       message: `Error creating product: ${error.message}`
     })
