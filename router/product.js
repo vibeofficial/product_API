@@ -6,7 +6,7 @@ const router = require('express').Router();
 
 /**
  * @swagger
- * /api/v1/create:
+ * /create:
  *   post:
  *     summary: Create a new product
  *     description: Creates a new product with an uploaded image. The image is first stored locally using Multer and then uploaded to Cloudinary.
@@ -92,7 +92,7 @@ router.post('/create', uploads.single('productImage'), createProduct);
 
 /**
  * @swagger
- * /api/v1/get-all:
+ * /get-all:
  *   get:
  *     summary: Get all products
  *     description: Retrieves a list of all products from the database.
@@ -150,7 +150,7 @@ router.get('get-all', getAll);
 
 /**
  * @swagger
- * /api/v1/get-one/{id}:
+ * /get-one/{id}:
  *   get:
  *     summary: Get a single product
  *     description: Retrieves a specific product by its ID.
@@ -224,7 +224,7 @@ router.get('get-one', getOne);
 
 /**
  * @swagger
- * /api/v1/update/{id}:
+ * /update/{id}:
  *   put:
  *     summary: Update a product
  *     description: Updates an existing product's details and optionally replaces its image on Cloudinary.
@@ -328,7 +328,7 @@ router.put('update', uploads.single('productImage'), update);
 
 /**
  * @swagger
- * /api/v1/delete/{id}:
+ * /delete/{id}:
  *   delete:
  *     summary: Delete a product
  *     description: Deletes a product from the database and removes its image from Cloudinary.

@@ -23,7 +23,7 @@ const options = {
         name: 'https://product-api-4vw8.onrender.com',
       },
       contact: {
-        name: "Backend Repo",
+        name: "",
         url: ""
       }
     },
