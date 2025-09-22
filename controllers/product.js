@@ -32,6 +32,7 @@ exports.createProduct = async (req, res) => {
     };
 
     const product = new productModel({
+      userId: user._id,
       productName,
       price,
       description,
