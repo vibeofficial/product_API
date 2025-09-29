@@ -1,4 +1,5 @@
 const { createProduct, getAll, getOne, update, deleteProduct } = require('../controllers/product');
+const { authenticate } = require('../middleware/authenticate');
 const uploads = require('../middleware/multer');
 
 const router = require('express').Router();
@@ -48,7 +49,7 @@ const router = require('express').Router();
  *       500:
  *         description: Error creating product
  */
-router.post('/products/create', uploads.single('productImage'), createProduct);
+router.post('/products/create', uploads.single('productImage'), authenticate, createProduct);
 
 /**
  * @swagger

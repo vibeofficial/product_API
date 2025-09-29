@@ -7,7 +7,12 @@ exports.createProduct = async (req, res) => {
   try {
     const { productName, price, description } = req.body;
     const { id } = req.user;
+    console.log(id);
+    
     const user = await userModel.findById(id);
+
+    console.log(user);
+    
 
     if (!user) {
       return res.status(404).json('Cannot create product for unexisting user')
