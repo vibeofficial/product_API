@@ -21,7 +21,7 @@ const options = {
       version: '1.0.0',
       description: "Documentation for product api",
       license: {
-        name: 'BASE URL: https://product-api-4vw8.onrender.com',
+        name: 'BASE URL: https://product-api-mrbb.onrender.com',
       },
       contact: {
         name: "Backend Repo",
