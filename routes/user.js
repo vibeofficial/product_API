@@ -1,4 +1,4 @@
-const { register, update, login } = require('../controllers/user');
+const { register, update, login, getOne } = require('../controllers/user');
 const uploads = require('../middleware/multer');
 
 const router = require('express').Router();
@@ -154,5 +154,57 @@ router.put('update/:id', uploads.single('profilePicture'), update);
  *         description: Internal Server Error
  */
 router.post('/login', login);
+
+
+/**
+ * @swagger
+ * /user/{id}:
+ *   get:
+ *     summary: Get a single user by ID
+ *     description: Retrieve a user's details using their unique ID.
+ *     tags:
+ *       - Users
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The user ID (MongoDB ObjectId)
+ *     responses:
+ *       200:
+ *         description: User found successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: User below
+ *                 data:
+ *                   $ref: '#/components/schemas/User'
+ *       404:
+ *         description: User not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: User not found
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Error getting a user
+ */
+router.get('/user/:id', getOne);
 
 module.exports = router;

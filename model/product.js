@@ -23,7 +23,7 @@ const productSchema = new mongoose.Schema({
     unique: true
   },
   productImage: {
-    imageUrl: { type: String },
+    url: { type: String },
     publicId: { type: String }
   }
 }, { timestamps: true });

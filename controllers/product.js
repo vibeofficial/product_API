@@ -26,8 +26,6 @@ exports.createProduct = async (req, res) => {
 
     if (file && file.path) {
       response = await cloudinary.uploader.upload(file.path);
-      console.log(response);
-
       fs.unlinkSync(file.path);
     };
 
@@ -36,7 +34,10 @@ exports.createProduct = async (req, res) => {
       productName,
       price,
       description,
-      productImage: { imageUrl: response.secure_url, publicId: response.public_id }
+      productImage: {
+        url: response.secure_url,
+        publicId: response.public_id
+      }
     });
 
     await product.save();
