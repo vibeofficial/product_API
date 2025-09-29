@@ -6,7 +6,7 @@ const userModel = require('../model/user');
 exports.createProduct = async (req, res) => {
   try {
     const { productName, price, description } = req.body;
-    const { id } = req.params;
+    const { id } = req.user;
     const user = await userModel.findById(id);
 
     if (!user) {

@@ -6,57 +6,49 @@ const router = require('express').Router();
 
 /**
  * @swagger
- * /create/{id}:
+ * /products/create:
  *   post:
- *     summary: Create a new product for a user
- *     tags: [Products]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: The ID of the user creating the product
+ *     summary: Create a new product
+ *     description: Authenticated users can create a product with name, price, description, and image.
+ *     tags:
+ *       - Products
+ *     security:
+ *       - BearerAuth: []    # 👈 Requires token
  *     requestBody:
  *       required: true
  *       content:
  *         multipart/form-data:
  *           schema:
  *             type: object
+ *             required:
+ *               - productName
+ *               - price
+ *               - description
+ *               - productImage
  *             properties:
  *               productName:
  *                 type: string
- *                 example: Samsung Galaxy S24
+ *                 example: "Chicken Burger"
  *               price:
  *                 type: number
- *                 example: 1200
+ *                 example: 12.99
  *               description:
  *                 type: string
- *                 example: A high-end Samsung smartphone
+ *                 example: "Juicy grilled chicken burger with fries"
  *               productImage:
  *                 type: string
  *                 format: binary
  *     responses:
  *       201:
  *         description: Product created successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: Product created successfully
- *                 data:
- *                   $ref: '#/components/schemas/Product'
  *       400:
  *         description: Product already exists
  *       404:
- *         description: User not found
+ *         description: Cannot create product for unexisting user
  *       500:
- *         description: Server error
+ *         description: Error creating product
  */
-router.post('/create/:id', uploads.single('productImage'), createProduct);
+router.post('/products/create', uploads.single('productImage'), createProduct);
 
 /**
  * @swagger

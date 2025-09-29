@@ -2,7 +2,7 @@ const userModel = require('../model/user');
 const cloudinary = require('../config/cloudinary')
 const bcrypt = require('bcrypt');
 const fs = require('fs');
-
+const jwt = require('jsonwebtoken');
 
 exports.register = async (req, res) => {
   try {
@@ -101,7 +101,7 @@ exports.update = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = await userModel.findOne({email: email.toLowerCase()});
+    const user = await userModel.findOne({ email: email.toLowerCase() });
 
     if (!user) {
       return res.status(404).json({
@@ -116,10 +116,11 @@ exports.login = async (req, res) => {
         message: 'Incorrect password'
       })
     };
-
+    const token = jwt.sign({ id: user._id }, 'password', { expiresIn: '1d' });
     res.status(200).json({
       message: 'Login successful',
-      data: user
+      data: user,
+      token
     })
   } catch (error) {
     console.log(error.message);
@@ -133,7 +134,7 @@ exports.login = async (req, res) => {
 
 exports.getOne = async (req, res) => {
   try {
-    const {id} = req.params;
+    const { id } = req.params;
     const user = await userModel.findById(id);
 
     if (!user) {
